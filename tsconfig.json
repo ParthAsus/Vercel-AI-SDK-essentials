@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2015",           // Update to ES2015 or higher
+    "module": "commonjs",         // For Node.js compatibility
+    "outDir": "./dist",           // Output directory for compiled JS
+    "rootDir": "./",              // Root directory of your TS files
+    "strict": true,               // Enable strict type checking
+    "esModuleInterop": true,      // For better module interop
+    "skipLibCheck": true,         // Skip type checking of declaration files
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "main.ts",
+    "system_prop/**/*.ts",
+    "server/**/*.ts",
+    "client.ts",
+    ],         // Include your main.ts file
+  "exclude": ["node_modules"]     // Exclude node_modules
+}

@@ -1,0 +1,44 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn.lock
+package-lock.json  # Remove if you want to commit this
+
+
+# Environment variables
+.env
+.env.local
+
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# OS-specific files
+.DS_Store  # macOS
+Thumbs.db  # Windows
+
+# Editor-specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Coverage reports (if you use testing tools)
+coverage/
+
+# Build artifacts
+build/
+out/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Dependency caches
+.pnpm-store/
+.eslintcache
+.prettiercache
