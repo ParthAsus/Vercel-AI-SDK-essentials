@@ -21,6 +21,7 @@ const googleConfigure = (0, google_1.createGoogleGenerativeAI)({
 });
 const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
     console.log("Starting server...");
+    console.log("API Key:", process.env.GOOGLE_API_KEY);
     const app = new hono_1.Hono();
     app.post("/api/get-completions", (ctx) => __awaiter(void 0, void 0, void 0, function* () {
         console.log("Received POST request");
@@ -36,13 +37,22 @@ const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
         };
         return ctx.json([responseMessage]);
     }));
-    const server = (0, node_server_1.serve)({
-        fetch: app.fetch,
-        port: 4317,
-        hostname: "0.0.0.0",
-    });
-    yield (0, node_events_1.once)(server, "listening");
-    console.log("Server running on http://localhost:4317");
-    return server;
+    try {
+        const server = (0, node_server_1.serve)({
+            fetch: app.fetch,
+            port: 4317,
+            hostname: "127.0.0.1",
+        });
+        server.on("error", (err) => {
+            console.error("Server error:", err);
+        });
+        yield (0, node_events_1.once)(server, "listening");
+        console.log("Server running on http://localhost:4317");
+        return server;
+    }
+    catch (error) {
+        console.error("Failed to start server:", error);
+        throw error; // Propagate the error
+    }
 });
 exports.startServer = startServer;

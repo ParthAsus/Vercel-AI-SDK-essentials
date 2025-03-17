@@ -42,43 +42,63 @@ var node_server_1 = require("@hono/node-server");
 var node_events_1 = require("node:events");
 var ai_1 = require("ai");
 var google_1 = require("@ai-sdk/google");
+require("dotenv/config");
 var googleConfigure = (0, google_1.createGoogleGenerativeAI)({
     apiKey: process.env.GOOGLE_API_KEY,
 });
 var startServer = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var app, server;
+    var app, server, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                console.log("Starting server...");
+                console.log("API Key:", process.env.GOOGLE_API_KEY);
                 app = new hono_1.Hono();
                 app.post("/api/get-completions", function (ctx) { return __awaiter(void 0, void 0, void 0, function () {
-                    var messages, result;
+                    var messages, result, responseMessage;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
-                            case 0: return [4 /*yield*/, ctx.req.json()];
+                            case 0:
+                                console.log("Received POST request");
+                                return [4 /*yield*/, ctx.req.json()];
                             case 1:
                                 messages = _a.sent();
+                                console.log("Messages:", messages);
                                 return [4 /*yield*/, (0, ai_1.generateText)({
-                                        model: googleConfigure('gemini-1.5-flash'),
+                                        model: googleConfigure("gemini-1.5-flash"),
                                         messages: messages,
                                     })];
                             case 2:
                                 result = _a.sent();
-                                return [2 /*return*/, ctx.json(result.response.messages)];
+                                responseMessage = {
+                                    role: "assistant",
+                                    content: result.text,
+                                };
+                                return [2 /*return*/, ctx.json([responseMessage])];
                         }
                     });
                 }); });
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
                 server = (0, node_server_1.serve)({
                     fetch: app.fetch,
                     port: 4317,
-                    hostname: "0.0.0.0",
+                    hostname: "127.0.0.1",
                 });
-                // Wait for the "listening" event to fire
+                server.on("error", function (err) {
+                    console.error("Server error:", err);
+                });
                 return [4 /*yield*/, (0, node_events_1.once)(server, "listening")];
-            case 1:
-                // Wait for the "listening" event to fire
+            case 2:
                 _a.sent();
+                console.log("Server running on http://localhost:4317");
                 return [2 /*return*/, server];
+            case 3:
+                error_1 = _a.sent();
+                console.error("Failed to start server:", error_1);
+                throw error_1; // Propagate the error
+            case 4: return [2 /*return*/];
         }
     });
 }); };

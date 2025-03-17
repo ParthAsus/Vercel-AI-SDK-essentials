@@ -1,25 +1,31 @@
 import { type CoreMessage } from "ai";
 import { startServer } from "./server/main";
 
-const messagesToSend: CoreMessage[] = [
-  {
-    role: "user",
-    content: "What's the capital of Wales?",
-  },
-];
+async function fetchAndDisplayMessages() {
+  await startServer();
 
-const response = await fetch("http://localhost:4317/api/get-completions", {
-  method: "POST",
-  body: JSON.stringify(messagesToSend),
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+  const messagesToSend: CoreMessage[] = [
+    {
+      role: "user",
+      content: "What's the capital of Wales?",
+    },
+  ];
 
-const newMessages = (await response.json()) as CoreMessage[];
+  const response = await fetch("http://127.0.0.1:4317/api/get-completions", {
+    method: "POST",
+    body: JSON.stringify(messagesToSend),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 
-const allMessages = [...messagesToSend, ...newMessages];
+  const newMessages = (await response.json()) as CoreMessage[];
 
-console.dir(allMessages, { depth: null });
+  const allMessages = [...messagesToSend, ...newMessages];
 
-await startServer();
+  console.dir(allMessages, { depth: null });
+}
+
+fetchAndDisplayMessages().catch((error) =>
+  console.error("Error:", error)
+);

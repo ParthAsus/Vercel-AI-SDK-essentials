@@ -12,15 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const main_1 = require("./server/main");
 function fetchAndDisplayMessages() {
     return __awaiter(this, void 0, void 0, function* () {
-        // Start the server first
         yield (0, main_1.startServer)();
         const messagesToSend = [
             {
                 role: "user",
-                content: "What's the capital of Wales?",
+                content: "what did i ask before?",
             },
         ];
-        const response = yield fetch("http://localhost:4317/api/get-completions", {
+        const response = yield fetch("http://127.0.0.1:4317/api/get-completions", {
             method: "POST",
             body: JSON.stringify(messagesToSend),
             headers: {
