@@ -17,6 +17,7 @@
     "structured_outputs/**/*.ts",
     "enums/**/*.ts",
     "config/**/*.ts",
+    "image_textGenerator/**/*.ts",
     ],         // Include your main.ts file
   "exclude": ["node_modules"]     // Exclude node_modules
 }
