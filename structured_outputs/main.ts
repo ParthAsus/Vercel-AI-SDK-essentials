@@ -1,4 +1,4 @@
-import { generateObject } from 'ai';
+import { generateObject, streamObject } from 'ai';
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import {z} from 'zod';
 import "dotenv/config";
@@ -44,7 +44,7 @@ const googleConfigure = createGoogleGenerativeAI({
 
 
 export const createRecipe = async(prompt: string) => {
-  const {object} = await generateObject({
+  const result = await streamObject({
     model: googleConfigure('gemini-1.5-flash'),
     schema: RecipeSchema,
     prompt,
@@ -53,8 +53,14 @@ export const createRecipe = async(prompt: string) => {
     `You are helping a user create a recipe. ` +
     `Use Indian English variants of ingredient names,`,
   });
+  
+  for await(const obj of result.partialObjectStream){
+    console.clear();
+    console.dir(obj.recipe);
+  }
 
-  return object.recipe;
+  const finalObject = await result.object;
+  return finalObject.recipe;
 }
 
-createRecipe("how to make butter chicken").then(result => console.dir(result, {depth: null})).catch(error => console.dir(error));
+createRecipe("how to make butter chicken");
