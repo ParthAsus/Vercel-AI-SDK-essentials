@@ -49,6 +49,7 @@ export const createRecipe = async(prompt: string) => {
     schema: RecipeSchema,
     prompt,
     schemaName: "Recipe",
+    // output: "array",
     system: 
     `You are helping a user create a recipe. ` +
     `Use Indian English variants of ingredient names,`,

@@ -62,6 +62,7 @@ const createRecipe = (prompt) => __awaiter(void 0, void 0, void 0, function* () 
         schema: RecipeSchema,
         prompt,
         schemaName: "Recipe",
+        // output: "array",
         system: `You are helping a user create a recipe. ` +
             `Use Indian English variants of ingredient names,`,
     });
