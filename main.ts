@@ -23,7 +23,7 @@ export const generateMyAnswer = async(prompt: string) => {
         role: 'user',
         content: prompt
       }
-    ]
+    ],
   });
 
   let fullText = '';

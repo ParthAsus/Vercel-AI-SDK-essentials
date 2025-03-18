@@ -1,4 +1,4 @@
-import { type CoreMessage } from "ai";
+import { type CoreMessage} from "ai";
 import { startServer } from "./server/main";
 
 async function fetchAndDisplayMessages() {
@@ -7,7 +7,7 @@ async function fetchAndDisplayMessages() {
   const messagesToSend: CoreMessage[] = [
     {
       role: "user",
-      content: "What's the capital of Wales?",
+      content: "vercel ai sdk, CoreMessage",
     },
   ];
 
@@ -22,6 +22,7 @@ async function fetchAndDisplayMessages() {
   const newMessages = (await response.json()) as CoreMessage[];
 
   const allMessages = [...messagesToSend, ...newMessages];
+
 
   console.dir(allMessages, { depth: null });
 }

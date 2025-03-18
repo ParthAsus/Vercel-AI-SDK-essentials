@@ -41,7 +41,7 @@ const generateMyAnswer = (prompt) => __awaiter(void 0, void 0, void 0, function*
                 role: 'user',
                 content: prompt
             }
-        ]
+        ],
     });
     let fullText = '';
     try {

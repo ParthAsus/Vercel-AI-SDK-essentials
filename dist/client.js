@@ -16,7 +16,7 @@ function fetchAndDisplayMessages() {
         const messagesToSend = [
             {
                 role: "user",
-                content: "what did i ask before?",
+                content: "vercel ai sdk, CoreMessage",
             },
         ];
         const response = yield fetch("http://127.0.0.1:4317/api/get-completions", {

@@ -14,6 +14,7 @@
     "system_prop/**/*.ts",
     "server/**/*.ts",
     "client.ts",
+    "structured_outputs/**/*.ts"
     ],         // Include your main.ts file
   "exclude": ["node_modules"]     // Exclude node_modules
 }
